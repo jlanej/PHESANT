@@ -30,15 +30,11 @@ testCategoricalMultiple <- function(varName, varType, thisdata) {
 	pheno = reassignValue(pheno, varName)
 
 	## get unique values from all columns of this variable
-	uniqueValues = unique(na.omit(pheno[,1]));
+	all_values <- paste(unlist(pheno), collapse = "|")
+	uniqueValues <- unique(strsplit(all_values, "\\|")[[1]])
+
 	numCols = ncol(pheno);
 	numRows = nrow(pheno);
-	if (numCols>1) {
-		for (num in 2:numCols) {
-			u = unique(na.omit(pheno[,num]))
-			uniqueValues = union(uniqueValues,u);
-		}
-	}
 
 	## for each value create a binary variable and test this
 	for (variableVal in uniqueValues) {
@@ -50,8 +46,9 @@ testCategoricalMultiple <- function(varName, varType, thisdata) {
 		}
 	
 		# make variable for this value
-		idxForVar = which(pheno == variableVal, arr.ind=TRUE)
-		idxsTrue = idxForVar[,"row"]
+		match_matrix <- sapply(pheno, function(col) grepl(paste0("\\b", variableVal, "\\b"), col))
+		idxsTrue <- which(rowSums(match_matrix) > 0)
+
 
 		cat(" CAT-MUL-BINARY-VAR ", variableVal, " || ", sep="");
 		incrementCounter("catMul.binary")
