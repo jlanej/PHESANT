@@ -1,0 +1,16 @@
+# Test results
+testWAS/results/*.txt
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# R temporary files
+.Rhistory
+.RData
+.Rproj.user
+
+# OS files
+.DS_Store
+Thumbs.db

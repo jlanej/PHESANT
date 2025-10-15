@@ -74,8 +74,8 @@ resDir 			| Directory where you want the results to be stored.
 ### Optional arguments
 Arg | Description
 -------|--------
-traitofinterestfile	| Comma separated file containing the trait of interest (e.g. a snp, genetic risk score or observed phenotype). Each row is a participant and there should be two columns - the user ID and the trait of interest. Where this argument is not supplied, the trait of interest should be a column in the phenofile.
-confounderfile		| Comma separated file containing the confounders, so that you can choose what confounders to use in the phenome scan.
+traitofinterestfile	| Comma separated file containing the trait of interest (e.g. a snp, genetic risk score or observed phenotype). Each row is a participant and there should be two columns - the user ID and the trait of interest. Where this argument is not supplied, the trait of interest should be a column in the phenofile. **Note:** Column names in this file should not duplicate those in the phenofile (except userId) to avoid merge conflicts. See `WAS/MERGE-VALIDATION.md` for details.
+confounderfile		| Comma separated file containing the confounders, so that you can choose what confounders to use in the phenome scan. **Note:** This file should ideally contain all samples present in the traitofinterestfile. If it contains a subset, a warning will be generated. Column names should not duplicate those in the phenofile (except userId). See `WAS/MERGE-VALIDATION.md` for details.
 userId                  | User id column as in the `traitofinterestfile` and the `phenofile` (default: userId).
 partIdx			| Subset of phenotypes you want to run (for parallelising).
 numParts		| Number of subsets you are using (for parallelising).
