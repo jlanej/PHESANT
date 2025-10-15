@@ -96,6 +96,15 @@ testCategoricalUnordered <- function(varName, varType, thisdata) {
 		
 		sumx <- summary(fit)
 		
+		# Check if 'geno' coefficient exists in the model
+		if (!"geno" %in% colnames(sumx$coefficients)) {
+			sink()
+			sink(resLogFile, append=TRUE)
+			cat("ERROR: geno coefficient not found in model (possible singularity/multicollinearity)")
+			incrementCounter("unordCat.error")
+			return(NULL)
+		}
+		
 		z <- sumx$coefficients/sumx$standard.errors
 		p = (1 - pnorm(abs(z), 0, 1))*2			
 
