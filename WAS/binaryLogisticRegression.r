@@ -84,6 +84,13 @@ binaryLogisticRegression <- function(varName, varType, thisdata, isExposure) {
 		
                 sumx = summary(mylogit)
 
+		# Check if 'geno' coefficient exists in the model
+		if (!"geno" %in% rownames(sumx$coefficients)) {
+			cat("ERROR: geno coefficient not found in model (possible singularity/multicollinearity)")
+			incrementCounter("binary.error")
+			return(NULL)
+		}
+
                 pvalue = sumx$coefficients['geno','Pr(>|z|)']
                 beta = sumx$coefficients["geno","Estimate"]
 

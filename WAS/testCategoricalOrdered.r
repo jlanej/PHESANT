@@ -87,6 +87,13 @@ testCategoricalOrdered <- function(varName, varType, thisdata, orderStr="") {
 
 		ct = coeftest(fit)
 
+		# Check if 'geno' coefficient exists in the model
+		if (!"geno" %in% rownames(ctable)) {
+			cat("ERROR: geno coefficient not found in model (possible singularity/multicollinearity)")
+			incrementCounter("ordCat.error")
+			return(NULL)
+		}
+
 		# model p value compares model to baseline model
                 lres = anova(fit, fitB)
 		pvalue = pchisq(lres[2,"LR stat."], df=lres[2,"   Df"], lower.tail=FALSE)

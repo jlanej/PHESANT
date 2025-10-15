@@ -204,6 +204,13 @@ testContinuous2 <- function(varName, varType, thisdata) {
 			
 			sumx = summary(fit)
 
+			# Check if 'geno' coefficient exists in the model
+			if (!"geno" %in% rownames(sumx$coefficients)) {
+				cat("ERROR: geno coefficient not found in model (possible singularity/multicollinearity)")
+				incrementCounter("continuous.error")
+				return(NULL)
+			}
+
 			pvalue = sumx$coefficients['geno','Pr(>|t|)']
 			beta = sumx$coefficients["geno","Estimate"]
 
