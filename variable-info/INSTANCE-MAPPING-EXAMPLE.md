@@ -55,4 +55,4 @@ If you want to analyze different time points separately, you would need to:
 2. Run PHESANT separately for each instance
 3. Combine results in post-processing
 
-Or use the `CAT_SINGLE_TO_CAT_MULT` column with `YES-INSTANCES` for fields where you want instances treated as arrays (see README.md).
+Or use the `CAT_SINGLE_TO_CAT_MULT` column with `YES-INSTANCES` for fields where you want instances treated as arrays (see the main README.md in the repository root).
