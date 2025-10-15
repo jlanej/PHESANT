@@ -33,6 +33,9 @@ loadData <- function() {
 
 	## check trait of interest file headers
 	validateTraitInput()
+	
+	## check for duplicate column names and sample coverage
+	validateMergeCompatibility()
 
 	#####
 	##### load data
