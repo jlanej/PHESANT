@@ -112,6 +112,10 @@ for (var in phenoVars) {
 #	print(var)
 	sink(resLogFile, append=TRUE)
 
+	# Parse variable name to extract field identifiers
+	# varx: field ID with instance (e.g., "30860_0" from "x30860_0_0")
+	# varxShort: field ID only (e.g., "30860" from "x30860_0_0")
+	# This allows mapping multiple instances/arrays to the same field in outcome-info.tsv
 	varx = gsub("^x", "", var);
         varx = gsub("_[0-9]+$", "", varx);
 	varxShort = gsub("^x", "", var);
@@ -119,11 +123,15 @@ for (var in phenoVars) {
 
 	## test this variable
 	if (currentVar == varx) {
+		# Same field and instance (e.g., x30860_0_0 and x30860_0_1)
+		# Combine arrays within the same instance
 		thisCol = data[,eval(var)]
 		thisCol = replaceNaN(thisCol)
 		currentVarValues = cbind.data.frame(currentVarValues, thisCol);
 	}
 	else if (currentVarShort == varxShort) {
+		# Same field but different instance (e.g., x30860_0_0 and x30860_1_0)
+		# Skip subsequent instances - only the first instance is tested
 		## different time point of this var so skip
 	}
 	else {
