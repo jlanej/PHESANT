@@ -71,6 +71,10 @@ loadPhenotypes <- function() {
 
                 for (var in phenoVars) {
 
+			# Parse variable name to extract field identifiers for mapping to outcome-info.tsv
+			# Example: x30860_0_0 (Total protein, baseline, array 0)
+			#   varx = "30860_0" (field ID + instance)
+			#   varxShort = "30860" (field ID only - used to match row in outcome-info.tsv)
                         varx = gsub("^x", "", var);
                         varx = gsub("_[0-9]+$", "", varx);
                         varxShort = gsub("^x", "", var);

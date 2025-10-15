@@ -65,7 +65,7 @@ Rscript phenomeScan.r \
 
 Arg | Description
 -------|--------
-phenofile 		| Comma separated file containing phenotypes. Each row is a participant, the first column contains the participant id and the remaining columns are phenotypes. Where there are multiple columns for a phenotype these must be adjacent in the file. Specifically for a given field in Biobank the instances should be adjacent and within each instance the arrays should be adjacent. Each variable name needs to be changed to the format 'x[varid]\_[instance]\_[array]' (we use the prefix 'x' so that the variable names are valid in R).
+phenofile 		| Comma separated file containing phenotypes. Each row is a participant, the first column contains the participant id and the remaining columns are phenotypes. Where there are multiple columns for a phenotype these must be adjacent in the file. Specifically for a given field in Biobank the instances should be adjacent and within each instance the arrays should be adjacent. Each variable name needs to be changed to the format 'x[varid]\_[instance]\_[array]' (we use the prefix 'x' so that the variable names are valid in R). **Note:** When a field has multiple instances (e.g., `x30860_0_0` for baseline and `x30860_1_0` for repeat assessment), PHESANT will test only the first instance encountered; subsequent instances are skipped. Arrays within the same instance are combined. See `variable-info/README.md` for details.
 variablelistfile 	| Tab separated file containing information about each phenotype, that is used to process them (see below).
 datacodingfile 		| Comma separated file containing information about data codings (see below).
 traitofinterest 	| Variable name as in traitofinterestfile.
@@ -121,7 +121,7 @@ This data dictionary provides the following set of information about fields, use
 
 1. ValueType column - the field type, either 'Integer', 'Continuous', 'Categorical single', 'Categorical multiple', or a few others we do not use.
 2. Three Cat_ID and three Cat_Title columns - the three levels of the category hierarchy, that can be seen [here](http://biobank.ctsu.ox.ac.uk/showcase/label.cgi).
-3. FieldID column - We use this to match the variable in our biobank data file to the correct row in this TSV file.
+3. FieldID column - We use this to match the variable in our biobank data file to the correct row in this TSV file. The FieldID contains only the field number (e.g., `30860`), not instance or array indices. **All instances and arrays of a field** (e.g., `x30860_0_0`, `x30860_1_0`, `x30860_0_1`) **map to the same row** in this file based on the FieldID. See `variable-info/README.md` for detailed information about how field instances map to this file.
 4. Field column -  The name of the field.
 
 The variable information file also has the following columns that we have added, to provide additional information used in the phenome scan:

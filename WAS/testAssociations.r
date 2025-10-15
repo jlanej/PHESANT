@@ -24,7 +24,8 @@ testAssociations <- function(currentVar, currentVarShort, thisdata) {
 
 	tryCatch({
 
-		# retrieve whether phenotype is excluded etc
+		# Retrieve phenotype information from outcome-info.tsv using field ID only (without instance/array)
+		# Example: x30860_0_0 and x30860_1_0 both map to FieldID=30860 in outcome-info.tsv
 		idx=which(vl$phenoInfo$FieldID==currentVarShort);
 
 		# check if variable info is found for this field
