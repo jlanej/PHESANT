@@ -31,6 +31,8 @@ FieldID    Path                                                             Fiel
 
 **All instances and arrays of a field (e.g., x30860_0_0, x30860_1_0, x30860_0_1) map to the same row in outcome-info.tsv** based on the FieldID (30860).
 
+For a detailed worked example, see [INSTANCE-MAPPING-EXAMPLE.md](INSTANCE-MAPPING-EXAMPLE.md).
+
 #### How PHESANT Processes Multiple Instances
 
 When PHESANT encounters multiple instances of the same field:
