@@ -44,7 +44,6 @@ testContinuous2 <- function(varName, varType, thisdata) {
 	# Check if pheno data is numeric before processing
 	if (!is.numeric(as.matrix(pheno))) {
 		cat("SKIP Continuous type but not numeric",sep="");
-		incrementCounter("cont.notnumeric")
 		return(NULL)
 	}
 
