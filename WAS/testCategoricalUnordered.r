@@ -87,6 +87,11 @@ testCategoricalUnordered <- function(varName, varType, thisdata) {
 		modelP = pchisq(lres[2,"LR stat."], df=lres[2,"   Df"], lower.tail=FALSE)
 		
 		## save result to file
+		# Calculate sample sizes for multinomial logistic regression overall model result:
+		# maxFreq: count in reference category (category with most participants)
+		# numNotNA: total participants across all categories
+		# Format: maxFreq/numNotNA with beta=-999 to indicate overall model result
+		# See PHESANT-sample-n-column-documentation.md for details
 		maxFreq = length(which(phenoFactor==reference));
 		numNotNA = length(which(!is.na(pheno)))
 	    	write(paste(paste0("\"",varName,"-",reference,"\""), varType, paste(maxFreq,"/",numNotNA,sep=""), -999, -999, -999, modelP, sep=","), file=paste(opt$resDir,"results-multinomial-logistic-",opt$varTypeArg,".txt",sep=""), append="TRUE")
@@ -123,6 +128,10 @@ testCategoricalUnordered <- function(varName, varType, thisdata) {
                 	        upper = NA
                 	}
 
+			# Calculate sample size for this specific category comparison:
+			# numThisValue: count in this specific category being tested
+			# maxFreq: count in reference category (same for all category comparisons)
+			# Format: maxFreq#numThisValue (e.g., "300#150" means 300 in reference, 150 in this category)
 			numThisValue = length(which(phenoFactor==u));
 
 			## save result to file
