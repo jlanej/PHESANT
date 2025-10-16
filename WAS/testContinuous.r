@@ -41,6 +41,13 @@ testContinuous2 <- function(varName, varType, thisdata) {
 	pheno = thisdata[,phenoStartIdx:ncol(thisdata)]
 	isExposure = getIsExposure(varName)
 
+	# Check if pheno data is numeric before processing
+	if (!is.numeric(as.matrix(pheno))) {
+		cat("SKIP Continuous type but not numeric",sep="");
+		incrementCounter("cont.notnumeric")
+		return(NULL)
+	}
+
 	if (!is.null(dim(pheno))) {
 		phenoAvg = rowMeans(pheno, na.rm=TRUE)
 	}
