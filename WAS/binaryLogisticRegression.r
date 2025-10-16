@@ -34,6 +34,11 @@ binaryLogisticRegression <- function(varName, varType, thisdata, isExposure) {
                 incrementCounter("binary.nottwolevels")
 	}
 
+	# Calculate sample sizes for binary logistic regression:
+	# idxTrue: count of first factor level (typically cases/presence)
+	# idxFalse: count of second factor level (typically controls/absence)
+	# numNotNA: total participants (should equal idxTrue + idxFalse)
+	# See PHESANT-sample-n-column-documentation.md for details
 	idxTrue = length(which(phenoFactor==facLevels[1]))
 	idxFalse = length(which(phenoFactor==facLevels[2]))
 	numNotNA = length(which(!is.na(phenoFactor)))
@@ -101,6 +106,8 @@ binaryLogisticRegression <- function(varName, varType, thisdata, isExposure) {
                 numNotNA = length(na.omit(phenoFactor))
 
                 ## save result to file
+		# Format for binary logistic n column: idxTrue/idxFalse(numNotNA)
+		# e.g., "300/600(900)" means 300 cases, 600 controls, 900 total
                 write(paste(paste0("\"", varName, "\""),varType,paste(idxTrue,"/",idxFalse,"(",numNotNA,")",sep=""), beta,lower,upper,pvalue, sep=","), file=paste(opt$resDir,"results-logistic-binary-",opt$varTypeArg,".txt",sep=""), append="TRUE");
                 cat("SUCCESS results-logistic-binary ");
                 

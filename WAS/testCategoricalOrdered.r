@@ -35,7 +35,9 @@ testCategoricalOrdered <- function(varName, varType, thisdata, orderStr="") {
 	orderStr = setOrderString(orderStr, uniqVar);
 	cat("order: ", orderStr, " || ",  sep="");
 
-	# check sample size
+	# Check sample size: count of participants with non-missing ordinal category values
+	# Format for ordered logistic n column: numNotNA (simple count, does not show category distribution)
+	# See PHESANT-sample-n-column-documentation.md for details
 	numNotNA = length(which(!is.na(pheno)))
 	if (numNotNA<500) {
 		cat("CATORD-SKIP-500 (", numNotNA, ") || ",sep="");
@@ -103,6 +105,7 @@ testCategoricalOrdered <- function(varName, varType, thisdata, orderStr="") {
                         upper = NA
                 }
 
+		# Save result with numNotNA format (total count only, not distribution across categories)
 		write(paste(paste0("\"", varName, "\""), varType, numNotNA, beta, lower, upper, pvalue, sep=","), file=paste(opt$resDir,"results-ordered-logistic-",opt$varTypeArg,".txt",sep=""), append="TRUE");
 		cat("SUCCESS results-ordered-logistic");
 		incrementCounter("success.ordCat")

@@ -217,9 +217,13 @@ testContinuous2 <- function(varName, varType, thisdata) {
                                 upper = NA
                         }
 
+			# Calculate sample size: number of participants with non-missing data after IRNT
+			# This represents participants with complete data for phenotype, trait of interest, and confounders
+			# See PHESANT-sample-n-column-documentation.md for details
 			numNotNA = length(which(!is.na(phenoIRNT)))
 
 			## save result to file
+			# Format for linear regression n column: numNotNA (simple count)
 			write(paste(paste0("\"", varName, "\""), varType, numNotNA, beta, lower, upper, pvalue, sep=","), file=paste(opt$resDir,"results-linear-",opt$varTypeArg,".txt", sep=""), append="TRUE");
 			cat("SUCCESS results-linear");
 
